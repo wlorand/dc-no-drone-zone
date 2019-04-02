@@ -1,0 +1,15 @@
+.app-header {
+  background-color: rgba(178, 34, 34, 1);
+  color: white;
+  display: flex;
+  font-size: calc(10px + 2vmin); /* nice way to make responsive text */
+  font-weight: bold;
+  padding-top: 15px;
+  min-height: 8vh;
+  /* height: 100%; */
+}
+
+.center {
+  margin: 0 auto;
+  text-align: center;
+}
