@@ -8,11 +8,13 @@ import Map from './components/Map';
 import './App.css';
 
 class App extends Component {
+  // TODO: Lift State here from the Component --closer to a Redux store
+
   render() {
     return (
       <div className="app-header">
         <p className="center">
-          Drone No-Fly-Zone: National Airport, Washington D.C.
+          FAA Drone No-Fly-Zone: National Airport, Washington D.C.
         </p>
         <Map />
       </div>

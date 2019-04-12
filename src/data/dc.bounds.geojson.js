@@ -1,3 +1,6 @@
+// TODO: edit coords to match basemap
+// TODO: Record Data Source and metadata in the JSON file
+
 const dcPolygon = {
   type: 'Feature',
   geometry: {

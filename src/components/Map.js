@@ -18,6 +18,8 @@ mapboxgl.accessToken =
 
 class Map extends Component {
   // store center location and initial zoom in local component state
+  // TODO: Lift your Application State up to App.js
+  // -- but perhaps only needed if you are sharing data across components
   state = {
     lng: -77.0424202,
     lat: 38.851242,
@@ -34,9 +36,10 @@ class Map extends Component {
     });
 
     // on Map load, add sources and layers -- notice still in componentDidMount
+    // This is Events -- need to rope these together to make for more maintainable code
     this.map.on('load', () => {
       // set a Marker
-      // eslint-disable-next-line
+      // eslint-disable-next-line -- add more eslint knowledge to your toolbox
       let marker = new mapboxgl.Marker()
         .setLngLat([this.state.lng, this.state.lat])
         .addTo(this.map);
@@ -48,6 +51,7 @@ class Map extends Component {
 
       // geojson dev inspect
       // console.log('buffer15 as a geojson single feature: ', buffer15);
+      //
 
       // add turf buffers to the map: first source, then layer
       // TODO: refactor to use the layers: [] to control drawing order
@@ -110,6 +114,8 @@ class Map extends Component {
       const destination = [-77.0424202, 38.851242]; // DCA
 
       // b- create GeoJSON line and point feature
+      // TODO: Store this as Data and not right inline here in a big file
+
       let route = {
         type: 'FeatureCollection',
         features: [
@@ -137,16 +143,19 @@ class Map extends Component {
       };
 
       // c- use Turf to calculate distance
+      // TODO: Could even rope together the Turf Spatial Analysis bits
+      // at the very least in a fxn
       const lineDistance = turf.lineDistance(route.features[0], {
         units: 'miles'
       });
       console.log(`${lineDistance} miles`);
 
       // d- create an arc of many points betw origin and destination
-      // hack to stop the line at the no-fly zone
+      // hack to stop the line at the no-fly zone (happy accident)
       let flightArc = [];
 
       for (let i = 0; i < lineDistance; i++) {
+        // what is the divisor here
         // segment is key
         var segment = turf.along(
           route.features[0],
@@ -195,7 +204,7 @@ class Map extends Component {
       // get a count of the map layers  (whoa! -- does all layers, not just user added)
       // TODO: Refactor this code to use the layers: [] and better code organization
       let layers = this.map.getStyle().layers;
-      // console.log(`layers fukll list ${JSON.stringify(layers)}`);
+      //   console.log(`layers fukll list ${JSON.stringify(layers)}`);
       console.log(`layers array length: ${layers.length}`); // [] with length === 5 (?) -- whoa 149
     }); // map onLoad
   }
